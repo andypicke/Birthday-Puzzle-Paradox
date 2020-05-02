@@ -39,37 +39,38 @@ def prob_shared_birthday(N_in_room, N_simulations=5000, probs=None):
     p_gte3 = np.mean(np.array(n_gte3)>0)
     return (p_gte2, p_gte3)
 
-plt_size = (6,6)
 
 if __name__=='__main__':
 
-
+    plt_size = (6,6)
     N_sims = 5000
+    room_sizes = list(range(1,101))
 
-    p2=[]
-    p3=[]
-    for N_in_room in range(1,100):
+    # Simulate w/ uniform distribution of birthdays
+    p2_unif = []
+    p3_unif = []
+    for N_in_room in room_sizes:
         p_gte2, p_gte3 = prob_shared_birthday(N_in_room, N_simulations=N_sims)
-        p2.append(p_gte2)
-        p3.append(p_gte3)
+        p2_unif.append(p_gte2)
+        p3_unif.append(p_gte3)
     
     fig, ax = plt.subplots(1, figsize=plt_size)
-    ax.plot(list(range(1,100)), p2, linewidth=3)
+    ax.plot(room_sizes, p2_unif, linewidth=3)
     ax.set_xlabel('# People in Room')
     ax.set_ylabel('Probability')
     ax.set_title('Prob. >=2 People Share Birthday (' + str(N_sims) + ' Simulations)')
     plt.savefig('./images/p_gte2_vs_N_uniform.png')
 
     fig, ax = plt.subplots(1, figsize=plt_size)
-    ax.plot(list(range(1,100)), p2, linewidth=3, label='>=2')
-    ax.plot(list(range(1,100)), p3, linewidth=3, label='>=3')
+    ax.plot(room_sizes, p2_unif, linewidth=3, label='>=2')
+    ax.plot(room_sizes, p3_unif, linewidth=3, label='>=3')
     ax.set_xlabel('# People in Room')
     ax.set_ylabel('Probability')
     ax.legend()
     ax.set_title('Prob >=N People Share Birthday (' + str(N_sims) + ' Simulations)')
     plt.savefig('./images/p_gte2_gte3_vs_N_uniform.png')
     
-
+    # Load actual birth data
     df_births = pd.read_csv('./data/US_births_2000-2014_SSA.csv')
     df_births.drop(['day_of_week'], axis=1, inplace=True)
     df_births.rename( columns={'date_of_month':'day'},inplace=True)
@@ -106,26 +107,22 @@ if __name__=='__main__':
     ax.legend()
     plt.savefig('images/birth_prob_vs_yday.png')
 
-    # Run simulations w/ uniform distribution and actual probs
-    p1=[]
-    for N_in_room in range(1,100):
-        p_gte2, p_gte3 = prob_shared_birthday(N_in_room, N_simulations=N_sims, probs=None)
-        p1.append(p_gte2)
-
-    p2=[]
-    for N_in_room in range(1,100):
+    # Run simulations w/ actual probs
+    p2_prob=[]
+    for N_in_room in room_sizes:
         p_gte2, p_gte3 = prob_shared_birthday(N_in_room, N_simulations=N_sims, probs = df_gb_yday['birth_prob'].values)
-        p2.append(p_gte2)
+        p2_prob.append(p_gte2)
 
     fig, ax = plt.subplots(1, figsize=plt_size)
-    ax.plot(list(range(1,100)), p1, linewidth=3, label='Uniform Dist.')
-    ax.plot(list(range(1,100)), p2, linewidth=3, label='W/ Probs')
+    ax.plot(room_sizes, p2_unif, linewidth=3, label='Uniform Dist.')
+    ax.plot(room_sizes, p2_prob, linewidth=3, label='W/ Probs')
     ax.set_xlabel('# People in Room')
     ax.set_ylabel('Probability')
     ax.legend()
     ax.set_title('Prob >=2 People Share Birthday (' + str(N_sims) + ' Simulations)')
     plt.savefig('images/p_gte2_vs_N_uniform_actual.png')
 
+    # Create a fake prob. distribution with larger differences to test if there is an effect
     ydays = np.arange(1,366)
     test_probs = np.sin(ydays/120)
     test_probs = test_probs/np.sum(test_probs)
@@ -137,14 +134,15 @@ if __name__=='__main__':
     ax.set_title('Fake Probability Distribution')
     plt.savefig('images/fake_birth_prob_vs_yday.png')
 
-    p3=[]
-    for N_in_room in range(1,100):
+    # Run simulations w/ fake probs
+    p2_fake=[]
+    for N_in_room in room_sizes:
         p_gte2, p_gte3 = prob_shared_birthday(N_in_room, N_simulations=N_sims, probs = test_probs)
-        p3.append(p_gte2)
+        p2_fake.append(p_gte2)
 
     fig, ax = plt.subplots(1, figsize=plt_size)
-    ax.plot(list(range(1,100)), p1, linewidth=3, label='Uniform Dist.')
-    ax.plot(list(range(1,100)), p3, linewidth=3, label='W/ Fake Probs')
+    ax.plot(room_sizes, p2_unif, linewidth=3, label='Uniform Dist.')
+    ax.plot(room_sizes, p2_fake, linewidth=3, label='W/ Fake Probs')
     ax.set_xlabel('# People in Room')
     ax.set_ylabel('Probability')
     ax.legend()
