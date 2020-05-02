@@ -6,7 +6,7 @@ Simulation of the Birthday Puzzle Problem in Python, including real birth data. 
 ## Introduction
 The ['Birthday Puzzle'](https://en.wikipedia.org/wiki/Birthday_problem) can be stated as follows: If a room contains N people, what is the probability that at least 2 people will share the same birthday? It has been shown that (assuming all birthdays are equally likely) the probability reaches 50% with a room size of 23 people. Intuitively (at least to me), it seems surprising that the probability is so high with only 23 people; hence the 'paradox'. 
 
-I'll first use a simulation-based approach in python to solve the traditional problem, and see how it compares to previous results. Then i'll solve the problem again using actual US birth-rate data and see if/how the results change.
+I'll first use a simulation-based approach in python to solve the traditional problem, and see how it compares to previous results (for example this [R-based solution by David Robinson](http://varianceexplained.org/r/birthday-problem/). Then i'll solve the problem again using actual US birth-rate data and see if/how the results change.
 
 
 ## Solution Assuming Uniform Distribution of Birthdays
@@ -31,7 +31,7 @@ The approach to solving the problem is the same as before, _except_ we assign a 
 
 First I summed births by month and day and visualized the results with a heatmap, producing a plot similar to those in the two blog posts mentioned above. The main takeaways are:
 - There is a definite seasonal pattern: there tend to be more births in September +/- a month. You can do the math and see what that infers about when babies are _conceived_.
-- There tend to be many less births on or close to major holidays (Thanksgiving, Christmas, New Year's, July 4th). I'm not sure if this is more due to people not wanting to give birth on holidays, or doctors not wanting to work/not available on holidays. But I thought it was interesting that it implies that in a large percentage of pregnancies, there is some leeway/choice (at least a day or two) of when exactly to give birth.
+- There tend to be many fewer births on or close to major holidays (Thanksgiving, Christmas, New Year's, July 4th). I'm not sure if this is more due to people not wanting to give birth on holidays, or doctors not wanting to work/not available on holidays. But I thought it was interesting that it implies that in a large percentage of pregnancies, there is some leeway/choice (at least a day or two) of when exactly to give birth.
 
 ![](images/births_heatmap.png)
 
