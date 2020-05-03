@@ -10,9 +10,9 @@ I'll first use a simulation-based approach in python to solve the traditional pr
 
 
 ## Solution Assuming Uniform Distribution of Birthdays
-- Assume all birthdays are equally likely. This can be represented by a uniform distribution from 1 to 365 (ignoring leap years). We can sample from this distribution in python using *numpy.random.choice*. We could also use *numpy.random.randint* here, but *numpy.random.choice* gives the option of passing in an array of probabilities, which I will use later on.
-- For a given number of people in the room (*N_in_room*), draw a random sample of size *N_in_room* with replacement and check if any values occur more than once (i'll use the handy *Counter* function from the *collections* module to count the number of times each value occurs).
-- Repeat this sampling process many times, then calculate the percent of times we get at least one duplicate; this is interpreted as the probability of getting at least one match for that room size.
+- Assume all birthdays are equally likely. This can be represented by a uniform distribution from 1 to 365 (ignoring leap years). We can sample from this distribution in python using [*numpy.random.choice*](https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html?highlight=random). We could also use [*numpy.random.randint*](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html?highlight=random) here, but *numpy.random.choice* gives the option of passing in an array of probabilities, which I will use later on.
+- For a given number of people in the room (*N_in_room*), draw a random sample of size *N_in_room* with replacement and check if any values occur more than once (i'll use the handy [*Counter*](https://docs.python.org/2/library/collections.html#collections.Counter) object from the [*collections*](https://docs.python.org/2/library/collections.html) module to count the number of times each value occurs).
+- Repeat this sampling process many times, then calculate the percent of times we get at least one duplicate; this is interpreted as the probability of getting at least one match for that room size. 
 - Repeat the above process for different *N_in_room* values, and plot the probabilities versus *N_in_room*.
 
 The results look similar to previous solutions, with the probability reaching 50% at a room size of 23 people:
