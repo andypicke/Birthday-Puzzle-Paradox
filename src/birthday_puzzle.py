@@ -59,7 +59,7 @@ if __name__=='__main__':
     ax.set_xlabel('# People in Room')
     ax.set_ylabel('Probability')
     ax.set_title('Prob. >=2 People Share Birthday (' + str(N_sims) + ' Simulations)')
-    plt.savefig('./images/p_gte2_vs_N_uniform.png')
+    plt.savefig('./images/p_gte2_vs_N_uniform.png',bbox_inches='tight')
 
     fig, ax = plt.subplots(1, figsize=plt_size)
     ax.plot(room_sizes, p2_unif, linewidth=3, label='>=2')
@@ -68,7 +68,7 @@ if __name__=='__main__':
     ax.set_ylabel('Probability')
     ax.legend()
     ax.set_title('Prob >=N People Share Birthday (' + str(N_sims) + ' Simulations)')
-    plt.savefig('./images/p_gte2_gte3_vs_N_uniform.png')
+    plt.savefig('./images/p_gte2_gte3_vs_N_uniform.png',bbox_inches='tight')
     
     # Load actual birth data
     df_births = pd.read_csv('./data/US_births_2000-2014_SSA.csv')
@@ -88,7 +88,7 @@ if __name__=='__main__':
     ax.set_xlabel('Day of Month')
     ax.set_ylabel('Month')
     ax.set_title('Number of Births Vs. Month and Day')
-    plt.savefig('images/births_heatmap.png')
+    plt.savefig('images/births_heatmap.png',bbox_inches='tight')
 
     # calculate probability of being born each day from data
     total_births = df_births['births'].sum()
@@ -105,7 +105,7 @@ if __name__=='__main__':
     ax.set_xlabel('Yearday')
     ax.set_ylabel('Probability')
     ax.legend()
-    plt.savefig('images/birth_prob_vs_yday.png')
+    plt.savefig('images/birth_prob_vs_yday.png',bbox_inches='tight')
 
     # Run simulations w/ actual probs
     p2_prob=[]
@@ -120,7 +120,7 @@ if __name__=='__main__':
     ax.set_ylabel('Probability')
     ax.legend()
     ax.set_title('Prob >=2 People Share Birthday (' + str(N_sims) + ' Simulations)')
-    plt.savefig('images/p_gte2_vs_N_uniform_actual.png')
+    plt.savefig('images/p_gte2_vs_N_uniform_actual.png',bbox_inches='tight')
 
     # Create a fake prob. distribution with larger differences to test if there is an effect
     ydays = np.arange(1,366)
@@ -132,7 +132,7 @@ if __name__=='__main__':
     ax.set_xlabel('Yearday')
     ax.set_ylabel('Probability')
     ax.set_title('Fake Probability Distribution')
-    plt.savefig('images/fake_birth_prob_vs_yday.png')
+    plt.savefig('images/fake_birth_prob_vs_yday.png',bbox_inches='tight')
 
     # Run simulations w/ fake probs
     p2_fake=[]
@@ -147,4 +147,4 @@ if __name__=='__main__':
     ax.set_ylabel('Probability')
     ax.legend()
     ax.set_title('Prob >=2 People Share Birthday (' + str(N_sims) + ' Simulations)')
-    plt.savefig('images/p_gte2_vs_N_uniform_fakeprobs.png')
+    plt.savefig('images/p_gte2_vs_N_uniform_fakeprobs.png',bbox_inches='tight')
